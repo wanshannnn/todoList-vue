@@ -2,6 +2,10 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
 }
 
 body {
@@ -9,7 +13,8 @@ body {
 }
 
 #app {
+    height: 80%;
     width: 100%;
-    max-width: 600px; /* 控制页面宽度 */
+    max-width: 600px;
     margin: auto;
 }

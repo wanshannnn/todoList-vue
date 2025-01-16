@@ -4,12 +4,23 @@ import todoInput from "./components/todoInput.vue";
 import {ref} from "vue";
 
 const tasks = ref([
-  { name: 'Example Task 1', category: 'work', done: false },
-  { name: 'Example Task 2', category: 'study', done: false },
+  { id: 1, name: 'Task 1', category: 'work', done: false, date:new Date() },
+  { id: 2, name: 'Task 2', category: 'study', done: false, date:new Date() },
 ]);
 
-function addTask(task: { name: string; category: string; done: boolean }) {
-  tasks.value.push(task);
+let nextId = 3;
+
+function addTask(task: { name: string; category: string; done: boolean; date: string; description: string }) {
+  tasks.value.push({
+    id: nextId++,
+    ...task,
+    // 将 ISO 字符串转换回 Date 对象
+    date: new Date(task.date),
+  });
+}
+
+function updateTask(updatedTasks: Array<{ id: number; name: string; category: string; done: boolean; date: Date; description?: string }>) {
+  tasks.value = updatedTasks;
 }
 </script>
 
@@ -18,7 +29,7 @@ function addTask(task: { name: string; category: string; done: boolean }) {
     <p>To Do List</p>
     <todoInput @addTask="addTask" />
     <el-divider />
-    <todoList :tasks="tasks" />
+    <todoList :tasks="tasks" @updateTask="updateTask"/>
   </div>
 </template>
 

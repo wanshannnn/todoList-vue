@@ -29,8 +29,11 @@ function formatDate(date: Date): string {
   return new Intl.DateTimeFormat('en-US', options).format(new Date(date));
 }
 
-function toggleTaskStatus(task: { id: number; name: string; category: string; done: boolean; date: Date; description?: string }) {
-  task.done = !task.done;
+function toggleTaskStatus(id: number, newStatus: boolean) {
+  const updatedTasks = props.tasks.map(task =>
+      task.id === id ? { ...task, done: newStatus } : task
+  );
+  emit('updateTask', updatedTasks);
 }
 
 function showDetail(task: { id: number; name: string; category: string; done: boolean; date: Date; description?: string }) {
@@ -67,12 +70,12 @@ function clearCompleted() {
       <h3>To Do</h3>
       <el-table :data="incompleteTasks" style="width: 100%">
         <el-table-column prop="name" label="Name" width="120" />
-        <el-table-column prop="category" label="Category" width="100" />
-        <el-table-column prop="date" label="Deadline" width="120" :formatter="(row: any) => formatDate(row.date)"/>
+        <el-table-column prop="category" label="Category" width="120" />
+        <el-table-column prop="date" label="Deadline" width="100" :formatter="(row: any) => formatDate(row.date)"/>
         <el-table-column label="Status" width="120" >
           <template #default="{ row }">
-            <el-checkbox :checked="!row.done" @change="toggleTaskStatus(row)">
-              Undone
+            <el-checkbox :checked="row.done" @change="(checked: boolean) => toggleTaskStatus(row.id, checked)">
+              {{ row.done ? 'Done' : 'Undone' }}
             </el-checkbox>
           </template>
         </el-table-column>
@@ -94,8 +97,8 @@ function clearCompleted() {
         <el-table-column prop="name" label="Name" width="340" />
         <el-table-column label="Status" width="120">
           <template #default="{ row }">
-            <el-checkbox :checked="row.done" @change="toggleTaskStatus(row)">
-              Done
+            <el-checkbox :checked="row.done" @change="(checked: boolean) => toggleTaskStatus(row.id, checked)">
+              {{ row.done ? 'Done' : 'Undone' }}
             </el-checkbox>
           </template>
         </el-table-column>

@@ -16,3 +16,18 @@
 
 ## 界面
 
+运行后，备忘录页面如图，分为 To Do 和 Done 两部分。
+
+勾选 Undone，当前todo条目将被移入 Done 区域。点击 clear，Done 区域中所有的内容会被删除。
+
+<img src="./README/1.png">
+
+点击标题下的 Add Task 按钮，会弹出对话框，填入必填信息后选中 Add，新的todo条目就会在页面显示。
+
+<img src="./README/2.png">
+
+<img src="./README/3.png">
+
+点击 View，可以查看当前条目的具体信息，并进行修改和删除操作。
+
+<img src="./README/4.png">

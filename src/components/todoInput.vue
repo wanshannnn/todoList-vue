@@ -32,6 +32,7 @@ function onSubmit() {
   // 重置表单并关闭对话框
   form.name = '';
   form.category = '';
+  form.done = false;
   form.date = new Date();
   form.description = '';
   centerDialogVisible.value = false;

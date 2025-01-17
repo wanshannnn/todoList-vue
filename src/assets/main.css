@@ -18,3 +18,21 @@ body {
     max-width: 600px;
     margin: auto;
 }
+
+.el-button--primary {
+    background-color: #fcb69f !important; /* 按钮背景色：柔和橙粉色 */
+    border-color: #fcb69f !important;    /* 按钮边框色：与背景色一致 */
+    color: white !important;            /* 按钮文字颜色：白色 */
+}
+
+.el-button--primary:hover {
+    background-color: #ffdbc0 !important; /* 悬停背景色：更浅的柔和橙粉色 */
+    border-color: #ffdbc0 !important;    /* 悬停边框色：更浅的柔和橙粉色 */
+}
+
+.el-button--primary:focus {
+    background-color: #ffe7d4 !important; /* 聚焦背景色：最浅的柔和橙粉色 */
+    border-color: #ffe7d4 !important;    /* 聚焦边框色：最浅的柔和橙粉色 */
+}
+
+

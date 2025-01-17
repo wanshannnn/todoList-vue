@@ -24,6 +24,11 @@ const currentTask = ref<{ id: number; name: string; category: string; done: bool
 const isDialogVisible = ref(false);
 const emit = defineEmits(['updateTask']);
 
+function formatDate(date: Date): string {
+  const options: Intl.DateTimeFormatOptions = { month: 'short', day: 'numeric' };
+  return new Intl.DateTimeFormat('en-US', options).format(new Date(date));
+}
+
 function toggleTaskStatus(task: { id: number; name: string; category: string; done: boolean; date: Date; description?: string }) {
   task.done = !task.done;
 }
@@ -63,8 +68,8 @@ function clearCompleted() {
       <el-table :data="incompleteTasks" style="width: 100%">
         <el-table-column prop="name" label="Name" width="120" />
         <el-table-column prop="category" label="Category" width="100" />
-        <el-table-column prop="deadline" label="Deadline" width="120" />
-        <el-table-column label="Status" width="120">
+        <el-table-column prop="date" label="Deadline" width="120" :formatter="(row: any) => formatDate(row.date)"/>
+        <el-table-column label="Status" width="120" >
           <template #default="{ row }">
             <el-checkbox :checked="!row.done" @change="toggleTaskStatus(row)">
               Undone
@@ -73,7 +78,7 @@ function clearCompleted() {
         </el-table-column>
         <el-table-column label="Detail" width="100">
           <template #default="{ row }">
-            <el-button @click="showDetail(row)" type="text">View</el-button>
+            <el-button @click="showDetail(row)" type="text" class="custom-button-text">View</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -96,7 +101,7 @@ function clearCompleted() {
         </el-table-column>
         <el-table-column label="Detail" width="100">
           <template #default="{ row }">
-            <el-button @click="showDetail(row)" type="text">View</el-button>
+            <el-button @click="showDetail(row)" type="text" class="custom-button-text">View</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -136,6 +141,7 @@ function clearCompleted() {
 .todoList-container{
   width: 100%;
   margin: 20px auto;
+  margin-top: 0px;
   box-sizing: border-box;
 }
 
@@ -143,5 +149,37 @@ function clearCompleted() {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+:deep(.el-checkbox__input.is-checked .el-checkbox__inner) {
+  background-color: pink !important;
+  border-color: pink !important;
+}
+
+:deep(.el-checkbox__input .el-checkbox__inner:hover) {
+  border-color: #ffa3c9 !important;
+}
+
+:deep(.el-checkbox__input .el-checkbox__inner) {
+  border-color: pink !important;
+}
+
+:deep(.el-checkbox__label) {
+  color: pink !important;
+}
+
+.custom-button-text {
+  color: pink !important;
+}
+
+.custom-button-text:hover {
+  color: #ffa3c9 !important;
+}
+
+h3 {
+  color: #333;
+  font-family: 'Georgia', serif;
+  font-size: 20px;
+  font-weight: bold;
 }
 </style>

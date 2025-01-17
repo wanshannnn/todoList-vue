@@ -39,7 +39,7 @@ function onSubmit() {
 </script>
 
 <template>
-  <el-button plain @click="centerDialogVisible = true">Add Task</el-button>
+  <el-button class="custom-button" @click="centerDialogVisible = true">Add Task</el-button>
 
   <el-dialog v-model="centerDialogVisible" title="Task Information" width="500" center>
     <el-form :model="form" label-width="auto" style="max-width: 600px">
@@ -79,5 +79,15 @@ function onSubmit() {
 </template>
 
 <style scoped>
+.custom-button {
+  background-color: pink;
+  border-radius: 12px;
+  color: white;
+  border: none;
+  transition: background-color 0.3s ease;
+}
 
+.custom-button:hover {
+  background-color: #ffa3c9;
+}
 </style>

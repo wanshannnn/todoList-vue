@@ -26,7 +26,7 @@ function updateTask(updatedTasks: Array<{ id: number; name: string; category: st
 
 <template>
   <div class="app-container">
-    <p>To Do List</p>
+    <p class="todo-title">To Do List</p>
     <todoInput @addTask="addTask" />
     <el-divider />
     <todoList :tasks="tasks" @updateTask="updateTask"/>
@@ -48,11 +48,10 @@ function updateTask(updatedTasks: Array<{ id: number; name: string; category: st
   box-sizing: border-box;
 }
 
-p {
+.todo-title {
+  color: pink;
+  font-family: 'Georgia', serif;
   font-size: 24px;
   font-weight: bold;
-  color: #333;
-  margin-bottom: 16px;
-  text-align: center;
 }
 </style>

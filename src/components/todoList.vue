@@ -48,6 +48,11 @@ function deleteTask() {
   emit('updateTask', updatedTasks);
   isDialogVisible.value = false;
 }
+
+function clearCompleted() {
+  const updatedTasks = props.tasks.filter((task) => !task.done);
+  emit("updateTask", updatedTasks);
+}
 </script>
 
 <template>
@@ -56,16 +61,17 @@ function deleteTask() {
     <div class="incomplete-container">
       <h3>To Do</h3>
       <el-table :data="incompleteTasks" style="width: 100%">
-        <el-table-column prop="name" label="Name" width="200" />
+        <el-table-column prop="name" label="Name" width="120" />
         <el-table-column prop="category" label="Category" width="100" />
-        <el-table-column label="Status" width="150">
+        <el-table-column prop="deadline" label="Deadline" width="120" />
+        <el-table-column label="Status" width="120">
           <template #default="{ row }">
             <el-checkbox :checked="!row.done" @change="toggleTaskStatus(row)">
               Undone
             </el-checkbox>
           </template>
         </el-table-column>
-        <el-table-column label="Detail" width="110">
+        <el-table-column label="Detail" width="100">
           <template #default="{ row }">
             <el-button @click="showDetail(row)" type="text">View</el-button>
           </template>
@@ -75,18 +81,20 @@ function deleteTask() {
 
     <!-- 已完成的任务 -->
     <div class="completed-container">
-      <h3>Done</h3>
+      <div class="completed-header">
+        <h3>Done</h3>
+        <el-button type="danger" size="mini" link @click="clearCompleted">Clear</el-button>
+      </div>
       <el-table :data="completedTasks" style="width: 100%">
-        <el-table-column prop="name" label="Name" width="200" />
-        <el-table-column prop="category" label="Category" width="180" />
-        <el-table-column label="Status" width="180">
+        <el-table-column prop="name" label="Name" width="340" />
+        <el-table-column label="Status" width="120">
           <template #default="{ row }">
             <el-checkbox :checked="row.done" @change="toggleTaskStatus(row)">
               Done
             </el-checkbox>
           </template>
         </el-table-column>
-        <el-table-column label="Detail" width="110">
+        <el-table-column label="Detail" width="100">
           <template #default="{ row }">
             <el-button @click="showDetail(row)" type="text">View</el-button>
           </template>
@@ -131,4 +139,9 @@ function deleteTask() {
   box-sizing: border-box;
 }
 
+.completed-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 </style>
